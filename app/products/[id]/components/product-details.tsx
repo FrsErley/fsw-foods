@@ -115,8 +115,8 @@ const ProductDetails = ({
 
           <div className="flex flex-col items-center">
             <div className="flex items-center gap-1 text-muted-foreground">
-              <TimerIcon size={14} />
               <span className="text-xs">Entrega</span>
+              <TimerIcon size={14} />
             </div>
             <p className="text-sm font-semibold">
               {product.restaurant.deliveryTimeMinutes} min
