@@ -4,9 +4,13 @@ import { Avatar, AvatarImage } from "@/app/_components/ui/avatar";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Separator } from "@/app/_components/ui/separator";
+import { CartContext } from "@/app/_context/cart";
 import { formatCurrency } from "@/app/_helpers/price";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 interface OrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -26,7 +30,7 @@ const getOrderStatusLabel = (status: OrderStatus) => {
     case "CANCELED":
       return "Cancelado";
     case "COMPLETED":
-      return "Entregue";
+      return "Finalizado";
     case "CONFIRMED":
       return "Confirmado";
     case "DELIVERING":
@@ -37,10 +41,24 @@ const getOrderStatusLabel = (status: OrderStatus) => {
 };
 
 const OrderItem = ({ order }: OrderItemProps) => {
+  const { addProductToCart } = useContext(CartContext);
+  const router = useRouter();
+  const handleRedoOrderClick = () => {
+    for (const orderProduct of order.products) {
+      addProductToCart({
+        product: { ...orderProduct.product, restaurant: order.restaurant },
+        quantity: orderProduct.quantity,
+      });
+    }
+
+    router.push(`/restaurants/${order.restaurantId}`);
+  };
   return (
     <Card>
       <CardContent className="p-5">
-        <div className="w-fit rounded-full bg-[#EEEEEE] px-2 py-1 text-muted-foreground">
+        <div
+          className={`w-fit rounded-full bg-[#EEEEEE] px-2 py-1 text-muted-foreground ${order.status !== "COMPLETED" && "bg-green-500 text-white"}`}
+        >
           <span className="block text-xs font-semibold">
             {getOrderStatusLabel(order.status)}
           </span>
@@ -57,8 +75,15 @@ const OrderItem = ({ order }: OrderItemProps) => {
             </span>
           </div>
 
-          <Button variant="ghost" size="icon" className="h-5 w-5">
-            <ChevronRightIcon />
+          <Button
+            asChild
+            variant="link"
+            size="icon"
+            className="h-5 w-5 text-black"
+          >
+            <Link href={`/restaurants/${order.restaurantId}`}>
+              <ChevronRightIcon />
+            </Link>
           </Button>
         </div>
 
@@ -66,7 +91,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
           <Separator />
         </div>
 
-        <div>
+        <div className="space-y-2">
           {order.products.map((product) => (
             <div key={product.id} className="flex items-center gap-2">
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground">
@@ -92,6 +117,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
             size="sm"
             className="text-xs text-primary"
             disabled={order.status !== "COMPLETED"}
+            onClick={handleRedoOrderClick}
           >
             Refazer pedido
           </Button>

@@ -28,8 +28,8 @@ const MyOrdersPage = async () => {
     <>
       <Header />
 
-      <div className="p-6">
-        <h2 className="font-semibold">Meus Pedidos</h2>
+      <div className="px-5 py-6">
+        <h2 className="pb-6 text-lg font-semibold">Meus Pedidos</h2>
 
         <div className="space-y-3">
           {orders.map((order) => (
