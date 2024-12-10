@@ -10,14 +10,9 @@ import RestaurantList from "./_components/restaurant-list";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./_lib/auth";
-import { notFound } from "next/navigation";
 
 const Home = async () => {
   const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return notFound();
-  }
 
   const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
     where: {
