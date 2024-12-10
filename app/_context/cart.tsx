@@ -28,21 +28,9 @@ interface ICartContext {
   totalQuantity: number;
   addProductToCart: ({
     product,
-    quantity,
     emptyCart,
   }: {
-    product: Prisma.ProductGetPayload<{
-      include: {
-        restaurant: {
-          select: {
-            id: true;
-            deliveryFee: true;
-            deliveryTimeMinutes: true;
-          };
-        };
-      };
-    }>;
-    quantity: number;
+    product: CartProduct;
     emptyCart?: boolean;
   }) => void;
   decreaseProductQuantity: (productId: string) => void;
@@ -67,11 +55,9 @@ export const CartContext = createContext<ICartContext>({
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
-  const subtotalPrice = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + Number(product.price) * product.quantity;
-    }, 0);
-  }, [products]);
+  const subtotalPrice = products.reduce((acc, product) => {
+    return acc + Number(product.price) * product.quantity;
+  }, 0);
 
   const totalPrice = useMemo(() => {
     return (
@@ -94,7 +80,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return setProducts([]);
   };
 
-  const decreaseProductQuantity = (productId: string) => {
+  const decreaseProductQuantity: ICartContext["decreaseProductQuantity"] = (
+    productId: string,
+  ) => {
     return setProducts((prev) =>
       prev.map((cartProduct) => {
         if (cartProduct.id === productId) {
@@ -128,25 +116,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const addProductToCart = ({
+  const addProductToCart: ICartContext["addProductToCart"] = ({
     product,
-    quantity,
     emptyCart,
-  }: {
-    product: Prisma.ProductGetPayload<{
-      include: {
-        restaurant: {
-          select: {
-            id: true;
-            deliveryFee: true;
-            deliveryTimeMinutes: true;
-          };
-        };
-      };
-    }>;
-    quantity: number;
-    emptyCart?: boolean;
   }) => {
+    if (emptyCart) {
+      setProducts([]);
+    }
+
     const hasDifferentRestaurantProduct = products.some(
       (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
     );
@@ -165,7 +142,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           if (cartProduct.id === product.id) {
             return {
               ...cartProduct,
-              quantity: cartProduct.quantity + quantity,
+              quantity: cartProduct.quantity + product.quantity,
             };
           }
 
@@ -174,7 +151,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       );
     }
 
-    setProducts((prev) => [...prev, { ...product, quantity: quantity }]);
+    setProducts((prev) => [...prev, product]);
   };
 
   const removeProductFromCart = (productId: string) => {

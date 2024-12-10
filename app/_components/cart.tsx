@@ -72,7 +72,7 @@ const Cart = ({ setIsOpen }: CartProps) => {
         description: "Você pode acompanha-lo na tela dos seus pedidos.",
         action: {
           label: "Meus pedidos",
-          onClick: () => router.push("/my-order"),
+          onClick: () => router.push("/my-orders"),
         },
       });
     } catch (error) {
