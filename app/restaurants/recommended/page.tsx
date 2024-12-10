@@ -3,14 +3,9 @@ import RestaurantItem from "@/app/_components/restaurant-item";
 import { authOptions } from "@/app/_lib/auth";
 import { db } from "@/app/_lib/prisma";
 import { getServerSession } from "next-auth";
-import { notFound } from "next/navigation";
 
 const RecommendedRestaurants = async () => {
   const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return notFound();
-  }
 
   const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
     where: {
