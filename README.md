@@ -1,14 +1,12 @@
 🍔 FSW Foods
 
-Aplicação web inspirada no iFood, desenvolvida com Next.js 14, permitindo que usuários naveguem por restaurantes, visualizem menus e realizem pedidos.
-
-O projeto utiliza arquitetura moderna do Next.js (App Router), autenticação com NextAuth e persistência de dados com Prisma ORM.
+Aplicação web inspirada no iFood, desenvolvida com Next.js 14, permitindo navegar por restaurantes e visualizar menus.
 
 🚀 Tecnologias
 
 Next.js 14
 
-React 18
+React
 
 TypeScript
 
@@ -39,22 +37,28 @@ Dark / Light mode
 Persistência de dados com Prisma
 
 ⚙️ Como rodar o projeto
-
-Clone o repositório:
-
+1️⃣ Clone o repositório
+```bash
 git clone https://github.com/seuusuario/fsw-foods.git
+```
 
-Instale as dependências:
-
+2️⃣ Instale as dependências
+```bash
 npm install
+```
 
-Configure o .env:
-
+3️⃣ Configure o .env
+```bash
 DATABASE_URL="postgresql://user:password@localhost:5432/fswfoods"
 
 NEXTAUTH_SECRET="secret"
 NEXTAUTH_URL="http://localhost:3000"
+```
 
-Execute o projeto:
-
+4️⃣ Execute o projeto
+```bash
 npm run dev
+
+Acesse: http://localhost:3000
+```
+
