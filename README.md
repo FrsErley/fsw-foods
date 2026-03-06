@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🍔 FSW Foods
 
-## Getting Started
+Aplicação web inspirada no iFood, desenvolvida com Next.js 14, permitindo que usuários naveguem por restaurantes, visualizem menus e realizem pedidos.
 
-First, run the development server:
+O projeto foi desenvolvido com foco em arquitetura moderna de aplicações web, utilizando Server Components, autenticação, ORM e UI moderna.
 
-```bash
+🚀 Tecnologias utilizadas
+Frontend
+
+Next.js 14
+
+React 18
+
+TypeScript
+
+Tailwind CSS
+
+Radix UI
+
+Lucide Icons
+
+Next Themes
+
+Backend / Fullstack
+
+Next.js Server Actions
+
+Prisma ORM
+
+NextAuth
+
+PostgreSQL
+
+Ferramentas de desenvolvimento
+
+ESLint
+
+Prettier
+
+Husky
+
+Lint-staged
+
+Git Commit Msg Linter
+
+🧠 Funcionalidades
+
+Autenticação de usuários com NextAuth
+
+Listagem de restaurantes
+
+Visualização de categorias de produtos
+
+Exibição de menus
+
+Interface responsiva
+
+Sistema de temas (dark/light)
+
+UI moderna com Radix UI
+
+Persistência de dados com Prisma
+
+🗄 Banco de dados
+
+Este projeto utiliza Prisma ORM para gerenciamento do banco de dados.
+
+Gerar cliente Prisma
+npx prisma generate
+Rodar migrations
+npx prisma migrate dev
+Popular banco de dados (seed)
+npx prisma db seed
+⚙️ Instalação do projeto
+
+Clone o repositório:
+
+git clone https://github.com/seuusuario/fsw-foods.git
+
+Entre na pasta:
+
+cd fsw-foods
+
+Instale as dependências:
+
+npm install
+🔐 Variáveis de ambiente
+
+Crie um arquivo .env na raiz do projeto.
+
+Exemplo:
+
+DATABASE_URL="postgresql://user:password@localhost:5432/fswfoods"
+
+NEXTAUTH_SECRET="secret"
+NEXTAUTH_URL="http://localhost:3000"
+▶️ Executando o projeto
+
+Rodar em modo desenvolvimento:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir no navegador:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+http://localhost:3000
